@@ -4,10 +4,13 @@ import (
 	"log"
 	"net"
 
+	"github.com/victorvf/grpc/pb"
+	"github.com/victorvf/grpc/services"
+
 	"google.golang.org/grpc"
 )
 
-func main () {
+func main() {
 	lis, err := net.Listen("tcp", "localhost:50051")
 
 	if err != nil {
@@ -15,6 +18,8 @@ func main () {
 	}
 
 	grpcServer := grpc.NewServer()
+
+	pb.RegisterUserServiceServer(grpcServer, services.NewUserService())
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Could not serve: %v", err)
