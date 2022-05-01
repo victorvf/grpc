@@ -12,9 +12,10 @@ type UserService struct {
 }
 
 func NewUserService() *UserService {
-	return &UserService{}
+	return &UserService{} // "&" Cria um ponteiro
 }
 
+// AddUser é um método de UserService
 func (*UserService) AddUser(ctx context.Context, req *pb.User) (*pb.User, error) {
 	fmt.Println(req.Name)
 
